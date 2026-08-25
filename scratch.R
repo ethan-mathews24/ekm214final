@@ -1,5 +1,8 @@
 
 # read in packages 
+# Rading in Packages and Data --------------------------------------------
+
+
 
 library(tidyverse)
 library(dplyr)
@@ -36,8 +39,6 @@ clean_combined_data <- combined_data |>
 
 
 # Exploratory Data -------------------------------------------------------
-
-
 
 # first I want to see how many NA values there are
 
@@ -104,6 +105,7 @@ ggplot(data = nut_long,
 moving_average <- tibble(
   window_start = seq(ymd("1988-01-05"), ymd("1995-12-26"), 
   by = "9 weeks"),
+  Sample_ID = NA,
   k_mgl = NA,
   mg_mgl = NA,
   NO3_ugl = NA,
@@ -134,33 +136,4 @@ for (i in 1:nrow(moving_average)) {
   # now we need to calculate the mean
   qs_smoothed$k_mgl[i] <- mean(pot, na.rm = TRUE)
   qs_smoothed$mg_mgl[i] <- mean(mag, na.rm = TRUE)
-
 }
-
-
-
-# graph
-
-qs_long <- qs_smoothed |> 
-  pivot_longer(
-    cols = c(k_mgl, mg_mgl),
-    names_to = "nutrient", 
-    values_to = "concentration")
-
-ggplot(data = qs_long, mapping = aes(
-  x = window_start,
-  y = concentration,
-  group = nutrient, 
-  color =nutrient)) + 
-  
-  geom_line() +
-  
-  theme_bw() + 
-  
-  labs(title = "Moving Averages",
-x = "Window Start",
-y = "Concentrations") +
-
-  scale_color_manual(values = c("red", "blue"), 
-  labels = c("Potassium", "Magnesium"))
-  
