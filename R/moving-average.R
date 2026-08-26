@@ -2,7 +2,7 @@
 
 library(tidyverse)
 
-# Moving Average ---------------------------------------------------------
+# Moving Averages ---------------------------------------------------------
 
 
 moving_average <- function(filtered_data) {
@@ -45,4 +45,3 @@ moving_average <- function(filtered_data) {
   
   return(result)
 }
-

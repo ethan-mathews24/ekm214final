@@ -106,8 +106,7 @@ moving_average(BQ1_filtered)
 
 
 
-
-# Plot for BQ1 -----------------------------------------------------------
+# Plots for BQ1 -----------------------------------------------------------
 
 mov_long <- moving_average |> 
   pivot_longer(
