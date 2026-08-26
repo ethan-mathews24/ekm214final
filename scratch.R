@@ -9,13 +9,13 @@ source("R/moving-average.R")
 
 # Read in Data 
 
-BQ1 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca1-Bisley.csv")
+BQ1 <- read_csv("data/QuebradaCuenca1-Bisley.csv")
 
-BQ2 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca2-Bisley.csv")
+BQ2 <- read_csv("data/QuebradaCuenca2-Bisley.csv")
 
-BQ3 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca3-Bisley.csv")
+BQ3 <- read_csv("data/QuebradaCuenca3-Bisley.csv")
   
-PRM <- read_csv("data/knb-lter-luq.20.4923064/RioMameyesPuenteRoto.csv")
+PRM <- read_csv("data/RioMameyesPuenteRoto.csv")
 
 problems(BQ1)
 
