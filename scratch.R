@@ -1,16 +1,15 @@
 
-# read in packages 
-# Reading in Packages and Data --------------------------------------------
-
-
 
 library(tidyverse)
 library(dplyr)
 
+source("R/moving-average.R")
+
+
 
 # Read in Data 
 
-bq1 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca1-Bisley.csv")
+BQ1 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca1-Bisley.csv")
 
 BQ2 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca2-Bisley.csv")
 
@@ -18,15 +17,11 @@ BQ3 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca3-Bisley.csv")
   
 PRM <- read_csv("data/knb-lter-luq.20.4923064/RioMameyesPuenteRoto.csv")
 
+problems(BQ1)
 
 # combiend the above read data sets into one master data frame
 combined_data <- bind_rows(BQ1, BQ2, BQ3, PRM)
-  
-  
 
-# GOAL is to create one graph for Bisley1. 
-# Time is going to be on the x-axis and then hopefully facet wrap it by the 
-# the Ion (NO3-N, K, Mg, Ca, NH4-N)
 
 
 
@@ -107,52 +102,9 @@ ggplot(data = nut_long,
 
 
 
-# making a tibble for the moving average
-
-moving_average <- tibble(
-  window_start = seq(ymd("1988-01-05"), ymd("1994-12-26"), 
-  by = "9 weeks"),
-  k_mgl = NA,
-  mg_mgl = NA,
-  NO3_ugl = NA,
-  ca_mgl = NA,
-  NH4_ugl = NA
-)
-
-moving_average
-
-# w2 <- moving_average$window_start[1]
-
-# Step 4. creating a loop
-for (i in 1:nrow(moving_average)) {
-# i is our iterator
-# 1:nrow(qs_smooothed) is our seqeuence
-# i will take on those values, one at a time
-  
-# we need to find out what rows fall within the start and end date
-
-  w1 <- moving_average$window_start[i]
-  
-  w2 <- w1 + weeks(9)
+moving_average(BQ1_filtered)
 
 
-
-# what ion values are inside that window?
-  
-  pot <- BQ1_filtered$K[BQ1_filtered$Sample_Date >= w1 & BQ1_filtered$Sample_Date < w2]
-  mag <- BQ1_filtered$Mg[BQ1_filtered$Sample_Date >= w1 & BQ1_filtered$Sample_Date < w2]
-  nit <- BQ1_filtered$`NO3-N`[BQ1_filtered$Sample_Date >= w1 & BQ1_filtered$Sample_Date < w2]
-  amon <- BQ1_filtered$`NH4-N`[BQ1_filtered$Sample_Date >= w1 & BQ1_filtered$Sample_Date < w2]
-  calc <- BQ1_filtered$Ca[BQ1_filtered$Sample_Date >= w1 & BQ1_filtered$Sample_Date < w2]
-
-
-  # now we need to calculate the mean
-  moving_average$k_mgl[i] <- mean(pot, na.rm = TRUE)
-  moving_average$mg_mgl[i] <- mean(mag, na.rm = TRUE)
-  moving_average$NO3_ugl[i] <- mean(nit, na.rm = TRUE)
-  moving_average$NH4_ugl[i] <- mean(amon, na.rm = TRUE)
-  moving_average$ca_mgl[i] <- mean(calc, na.rm = TRUE)
-}
 
 
 # Plot for BQ1 -----------------------------------------------------------
