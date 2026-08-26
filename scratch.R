@@ -1,6 +1,6 @@
 
 # read in packages 
-# Rading in Packages and Data --------------------------------------------
+# Reading in Packages and Data --------------------------------------------
 
 
 
@@ -10,7 +10,7 @@ library(dplyr)
 
 # Read in Data 
 
-Bq1 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca1-Bisley.csv")
+BQ1 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca1-Bisley.csv")
 
 BQ2 <- read_csv("data/knb-lter-luq.20.4923064/QuebradaCuenca2-Bisley.csv")
 
@@ -33,7 +33,14 @@ combined_data <- bind_rows(BQ1, BQ2, BQ3, PRM)
 # select the important rows 
 clean_combined_data <- combined_data |> 
   select("Sample_ID", "Code", "Sample_Date", "NO3-N", "K", "Mg", "Ca", "NH4-N") |> 
-  filter(year(Sample_Date) %in% c(1988:1995))
+  filter(year(Sample_Date) %in% c(1988:1994))
+
+# filtered BQ1 dataset
+
+BQ1_filtered <- BQ1 |> 
+  select("Sample_ID", "Code", "Sample_Date", "NO3-N", "K", "Mg", "Ca", "NH4-N") |> 
+  filter(year(Sample_Date) %in% c(1988:1994))
+
 
 
 
@@ -103,17 +110,18 @@ ggplot(data = nut_long,
 # making a tibble for the moving average
 
 moving_average <- tibble(
-  window_start = seq(ymd("1988-01-05"), ymd("1995-12-26"), 
+  window_start = seq(ymd("1988-01-05"), ymd("1994-12-26"), 
   by = "9 weeks"),
-  Sample_ID = NA,
   k_mgl = NA,
   mg_mgl = NA,
   NO3_ugl = NA,
-  K_mgl = NA,
+  ca_mgl = NA,
   NH4_ugl = NA
 )
 
 moving_average
+
+# w2 <- moving_average$window_start[1]
 
 # Step 4. creating a loop
 for (i in 1:nrow(moving_average)) {
@@ -122,18 +130,70 @@ for (i in 1:nrow(moving_average)) {
 # i will take on those values, one at a time
   
 # we need to find out what rows fall within the start and end date
+
+  w1 <- moving_average$window_start[i]
   
-  w1 <- qs_smoothed$window_start[i]
-  
-  w2 <- qs_smoothed$window_start[i] + 9
+  w2 <- w1 + weeks(9)
 
 
-# what potassium(k) values are inside that window?
+
+# what ion values are inside that window?
   
-  pot <- qs_data$k_mgl[qs_data$sample_date >= w1 & qs_data$sample_date < w2]
-  mag <- qs_data$mg_mgl[qs_data$sample_date >= w1 & qs_data$sample_date < w2]
+  pot <- BQ1_filtered$K[BQ1_filtered$Sample_Date >= w1 & BQ1_filtered$Sample_Date < w2]
+  mag <- BQ1_filtered$Mg[BQ1_filtered$Sample_Date >= w1 & BQ1_filtered$Sample_Date < w2]
+  nit <- BQ1_filtered$`NO3-N`[BQ1_filtered$Sample_Date >= w1 & BQ1_filtered$Sample_Date < w2]
+  amon <- BQ1_filtered$`NH4-N`[BQ1_filtered$Sample_Date >= w1 & BQ1_filtered$Sample_Date < w2]
+  calc <- BQ1_filtered$Ca[BQ1_filtered$Sample_Date >= w1 & BQ1_filtered$Sample_Date < w2]
+
 
   # now we need to calculate the mean
-  qs_smoothed$k_mgl[i] <- mean(pot, na.rm = TRUE)
-  qs_smoothed$mg_mgl[i] <- mean(mag, na.rm = TRUE)
+  moving_average$k_mgl[i] <- mean(pot, na.rm = TRUE)
+  moving_average$mg_mgl[i] <- mean(mag, na.rm = TRUE)
+  moving_average$NO3_ugl[i] <- mean(nit, na.rm = TRUE)
+  moving_average$NH4_ugl[i] <- mean(amon, na.rm = TRUE)
+  moving_average$ca_mgl[i] <- mean(calc, na.rm = TRUE)
 }
+
+
+# Plot for BQ1 -----------------------------------------------------------
+
+mov_long <- moving_average |> 
+  pivot_longer(
+    cols = c(k_mgl, ca_mgl, mg_mgl, NO3_ugl, NH4_ugl),
+    names_to = "nutrient", 
+    values_to = "concentration")
+
+ggplot(data = mov_long, 
+  mapping = aes(
+  x = window_start,
+  y = concentration,
+  group = nutrient, 
+  color = nutrient)) + 
+  
+  geom_line() +
+  
+  theme_bw() + 
+  
+  labs(title = "BQ1", 
+  x = "Date", 
+  y = "Concentration") +
+  
+  scale_color_manual(
+    name = "Nutrient",
+    values = c(
+      "ca_mgl"    = "red",
+      "k_mgl"     = "goldenrod",
+      "mg_mgl"    = "forestgreen",
+      "NH4_ugl" = "dodgerblue",
+      "NO3_ugl" = "deeppink"
+    ),
+    labels = c(
+      "ca_mgl"    = "Calcium",
+      "k_mgl"     = "Potassium",
+      "mg_mgl"    = "Magnesium",
+      "NH4_ugl" = "Ammonium",
+      "NO3_ugl" = "Nitrate"
+    )) +
+  
+  facet_wrap(~nutrient, scales = "free")
+
