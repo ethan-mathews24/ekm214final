@@ -8,6 +8,7 @@ moving_average <- function(filtered_data) {
   # Initialize a tibble to contain the results
   result <- tibble(
     window_start = seq(ymd("1988-01-05"), ymd("1994-12-26"), by = "9 weeks"),
+    Site = filtered_data$Sample_ID[1],
     k_mgl = NA,
     mg_mgl = NA,
     no3_ugl = NA,
@@ -45,3 +46,4 @@ moving_average <- function(filtered_data) {
 
   return(result)
 }
+
