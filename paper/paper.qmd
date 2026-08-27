@@ -24,114 +24,20 @@ library(tidyverse)
 
 ```
 
-```{r}
-#| output: false
+The following data files for this analysis were downloaded from [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-luq.20.4923064) and can be found in the folder raw_data:
 
-BQ1 <- read_csv("../data/QuebradaCuenca1-Bisley.csv") |> 
-    select(
-    "Sample_ID",
-    "Code",
-    "Sample_Date",
-    "NO3-N",
-    "K",
-    "Mg",
-    "Ca",
-    "NH4-N"
-  ) |>
-  filter(year(Sample_Date) %in% c(1988:1994))
+- QuebradaCuenca1-Bisley.csv
+- QuebradaCuenca2-Bisley.csv
+- QuebradaCuenca3-Bisley.csv
+- RioMameyesPuenteRoto.csv
 
-
-BQ2 <- read_csv("../data/QuebradaCuenca2-Bisley.csv") |>
-    select(
-    "Sample_ID",
-    "Code",
-    "Sample_Date",
-    "NO3-N",
-    "K",
-    "Mg",
-    "Ca",
-    "NH4-N"
-  ) |>
-  filter(year(Sample_Date) %in% c(1988:1994))
-
-
-BQ3 <- read_csv("../data/QuebradaCuenca3-Bisley.csv") |>
-    select(
-    "Sample_ID",
-    "Code",
-    "Sample_Date",
-    "NO3-N",
-    "K",
-    "Mg",
-    "Ca",
-    "NH4-N"
-  ) |>
-  filter(year(Sample_Date) %in% c(1988:1994))
-
-
-PRM <- read_csv("../data/RioMameyesPuenteRoto.csv") |>
-    select(
-    "Sample_ID",
-    "Code",
-    "Sample_Date",
-    "NO3-N",
-    "K",
-    "Mg",
-    "Ca",
-    "NH4-N"
-  ) |>
-  filter(year(Sample_Date) %in% c(1988:1994))
-
-combined_data <- bind_rows(BQ1, BQ2, BQ3, PRM)
-
-```
+Each .csv file was read in and filtered to the date range from January 5th, 1988 to December 26th, 1994. The relevant columns corresponding to Sample ID, Sample Date, and concentrations for K, NO$_3$, Mg, Ca, and NH$_4$ were also selected.
 
 # Methods
 
 The water chemistry data from four the watersheds (BQ1, BQ2, BQ3, and PRM) were filtered to include samples from 1988–1994. A 9-week moving average was calculated for potassium (K), magnesium (Mg), nitrate (NO3-N), calcium (Ca), and ammonium (NH4-N) concentrations to examine changes in stream chemistry over time. The resulting averages were used to compare water chemistry before and after Hurricane Hugo. 
 
-```{r}
 
-moving_average <- function(filtered_data) {
-  result <- tibble(
-    window_start = seq(ymd("1988-01-05"), ymd("1994-12-26"), 
-    by = "9 weeks"),
-    k_mgl = NA,
-    mg_mgl = NA,
-    no3_ugl = NA,
-    ca_mgl = NA,
-    nh4_ugl = NA
-  )
-
- 
-  for (i in 1:nrow(result)) {
-    
-    w1 <- result$window_start[i]
-    w2 <- w1 + weeks(9)
-
-    in_window <- filtered_data$Sample_Date >= w1 & 
-        filtered_data$Sample_Date < w2
-
-   
-    k_window <- filtered_data$K[in_window]
-    mg_window <- filtered_data$Mg[in_window]
-    nit_window <- filtered_data$`NO3-N`[in_window]
-    amon_window <- filtered_data$`NH4-N`[in_window]
-    calc_window <- filtered_data$Ca[in_window]
-    
-
-    result$k_mgl[i] <- mean(k_window, na.rm = TRUE)
-    result$mg_mgl[i] <- mean(mg_window, na.rm = TRUE)
-    result$no3_ugl[i] <- mean(nit_window, na.rm = TRUE)
-    result$nh4_ugl[i] <- mean(amon_window, na.rm = TRUE)
-    result$ca_mgl[i] <- mean(calc_window, na.rm = TRUE)
-  }
-
-  return(result)
-}
-
-
-```
 
 # Results
 
@@ -139,6 +45,8 @@ moving_average <- function(filtered_data) {
 #| echo: false
 
 fig3 <- read_csv("../output/clean_data.csv")
+
+hurricane_date <- as.Date("1989-09-18")
 
 ggplot(data = fig3, mapping = aes(
     x = window_start,
