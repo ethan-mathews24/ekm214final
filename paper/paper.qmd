@@ -136,8 +136,43 @@ moving_average <- function(filtered_data) {
 # Results
 
 ```{r}
+#| echo: false
 
-# GRAPH AND CAPTION GOES HERE
+ggplot(data = fig3, mapping = aes(
+    x = window_start,
+    y = concentration, 
+    linetype = Site
+)) + 
+  
+  geom_line() + 
+  
+  geom_vline(xintercept = hurricane_date, linetype = "dashed", linewidth = 0.4) +
+  
+  theme_bw() + 
+  
+  labs(
+    title = "Hurricane effects on stream chemistry",
+    x = "Years", 
+    y = NULL, 
+    linetype = NULL) +
+  
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  ) +
+  
+  theme(
+    strip.placement = "outside",
+    strip.background = element_blank(),
+    strip.text.y.left = element_text(angle = 90),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank()) +
+  
+  facet_grid(vars(nutrient), scales = "free_y", switch = "y") +
+  
+  theme(strip.placement = "outside") +
+  
+  scale_x_date(sec.axis = dup_axis())
 
 
 
