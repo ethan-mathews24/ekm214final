@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -33,10 +36,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="README_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="README_files/libs/quarto-html/anchor.min.js"></script>
 <link href="README_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="README_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="README_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="README_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="README_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="README_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="README_files/libs/bootstrap/bootstrap-917079515d91bccb85b543faf8aa8bb6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -54,38 +57,38 @@ ul.task-list li input[type="checkbox"] {
 <h1>Replicating an Analysis on Hurricane Disturbance and Stream Water Chemistry in Luquillo, Puerto Rico</h1>
 <section id="purpose-of-this-repository" class="level3">
 <h3 class="anchored" data-anchor-id="purpose-of-this-repository">Purpose of this Repository</h3>
-<p>This repository aims to replicate an analysis done by Douglas. A. Schaefer et al.&nbsp;titled <em>Effects of hurricane disturbance on stream water concentrations and fluxes in eight tropical forest watersheds of the Luquillo Experimental Forest, Puerto Rico.</em> The study was pulished by Cambridge University Press in 01 March 2000 and the authors analyzed the effects of hurricane disturbance on stream water concentrations and the variation in eight different tropical forest watersheds.</p>
+<p>This repository aims to replicate an analysis done by Douglas. A. Schaefer et al.&nbsp;titled <em>Effects of hurricane disturbance on stream water concentrations and fluxes in eight tropical forest watersheds of the Luquillo Experimental Forest, Puerto Rico.</em> The study was published by Cambridge University Press in 01 March 2000 and the authors analyzed the effects of hurricane disturbance on stream water concentrations and the variation in eight different tropical forest watersheds.</p>
 </section>
 <section id="repository-contents" class="level3">
 <h3 class="anchored" data-anchor-id="repository-contents">Repository Contents</h3>
-<p>The repository contains the packages needs to run the analysis and load in data files, the raw data, R scripts to run the analysis, and as well as the citations from where the analysis came from.</p>
+<p>The repository contains the packages needed to run the analysis and load in data files, the raw data, R scripts to run the analysis, and the citations from where the analysis came from.</p>
 </section>
 <section id="package-dependencies" class="level3">
 <h3 class="anchored" data-anchor-id="package-dependencies">Package Dependencies</h3>
 <ul>
 <li><p><code>tidyverse</code></p></li>
-<li><p><code>janitor</code></p></li>
+<li><p><code>lubridate</code></p></li>
 <li><p><code>fs</code></p></li>
 </ul>
 </section>
 <section id="data-and-file-information" class="level3">
 <h3 class="anchored" data-anchor-id="data-and-file-information">Data and File Information</h3>
 <p><strong>The Analysis</strong> uses examples from the paper:</p>
-<p>Schaefer DouglasA, McDowell WH, Scatena FN, Asbury CE. Effects of hurricane disturbance on stream water concentrations and fluxes in eight tropical forest watersheds of the Luquillo Experimental Forest, Puerto Rico. <em>Journal of Tropical Ecology.</em> 2000;16(2):189-207. 10.1017/S0266467400001358</p>
+<p>Schaefer, Douglas. A., William H. McDowell, Fredrick N. Scatena, and Clyde E. Asbury. 2000. “Effects of Hurricane Disturbance on Stream Water Concentrations and Fluxes in Eight Tropical Forest Watersheds of the Luquillo Experimental Forest, Puerto Rico.” <em>Journal of Tropical Ecology</em> 16 (2): 189–207. https://doi.org/10.1017/s0266467400001358.</p>
 <p><strong>The Analysis</strong> uses the dataset:</p>
-<p>McDowell, William H., and USDA Forest Service. International Institute Of Tropical Forestry (IITF). 2024. “Chemistry of Stream Water from the Luquillo Mountains.” [Dataset] <em>Environmental Data Initiative.</em> https://doi.org/10.6073/PASTA/F31349BEBDC304F758718F4798D25458.</p>
-<p><em>NOTE:</em> This data is in the raw form. Within this repository you can find which datasets were used for the analysis as well as the script to clean and bind the datasets. In turn, this makes the analysis easier to replicate.</p>
+<p>McDowell, William H., and USDA Forest Service. 2024. “Chemistry of Stream Water from the Luquillo Mountains.” International Institute of Tropical Forestry (IITF). Environmental Data Initiative. https://doi.org/10.6073/pasta/f31349bebdc304f758718f4798d25458.</p>
+<p><em>NOTE:</em> This data is in the raw form. Within this repository you can find which datasets were used for the analysis as well as the script to clean and bind the datasets. In turn, this makes the analysis easier to replicate. The raw data will be found in the data folder and the cleaned data in <strong>(TBD)</strong>.</p>
 </section>
 <section id="authors-and-contributors" class="level3">
 <h3 class="anchored" data-anchor-id="authors-and-contributors">Authors and Contributors</h3>
-<p><a href="https://github.com/ethan-mathews24">Ethan Mathews</a></p>
-<p>File Structure:</p>
+<p>Author - <a href="https://github.com/ethan-mathews24">Ethan Mathews</a></p>
+<p>Contributor - <a href="https://github.com/FlukeAndFeather">Max Czapanskiy</a></p>
+<p>Contributor - <a href="https://github.com/avidalmeza">Ale Vida Meza</a></p>
+</section>
+<section id="file-structure" class="level3">
+<h3 class="anchored" data-anchor-id="file-structure">File Structure:</h3>
 <pre><code>TBD run fs::dir_tree() in the console and paste here.
 </code></pre>
-</section>
-<section id="rendered-output" class="level3">
-<h3 class="anchored" data-anchor-id="rendered-output">Rendered Output</h3>
-<p>The rendered output is <a href=".html">here</a></p>
 </section>
 </section>
 
