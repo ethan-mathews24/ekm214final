@@ -21,8 +21,6 @@ The repository contains the packages needed to run the analysis and load in data
 
 * `lubridate`
 
-* `janitor`
-
 * `fs` 
 
 
@@ -39,13 +37,17 @@ Schaefer, Douglas. A., William H. McDowell, Fredrick N. Scatena, and Clyde E. As
 
 McDowell, William H., and USDA Forest Service. 2024. “Chemistry of Stream Water from the Luquillo Mountains.” International Institute of Tropical Forestry (IITF). Environmental Data Initiative. https://doi.org/10.6073/pasta/f31349bebdc304f758718f4798d25458.
 
-*NOTE:* This data is in the raw form. Within this repository you can find which datasets were used for the analysis as well as the script to clean and bind the datasets. In turn, this makes the analysis easier to replicate. The data will be found in the data folder. 
+*NOTE:* This data is in the raw form. Within this repository you can find which datasets were used for the analysis as well as the script to clean and bind the datasets. In turn, this makes the analysis easier to replicate. The raw data will be found in the data folder and the cleaned data in **(TBD)**. 
 
 
 
 ### Authors and Contributors
 
-[Ethan Mathews](https://github.com/ethan-mathews24)
+Author - [Ethan Mathews](https://github.com/ethan-mathews24) 
+
+Contributor - [Max Czapanskiy](https://github.com/FlukeAndFeather)
+
+Contributor - [Ale Vida Meza](https://github.com/avidalmeza)
 
 
 
