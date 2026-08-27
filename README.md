@@ -57,8 +57,3 @@ Contributor - [Ale Vida Meza](https://github.com/avidalmeza)
 TBD run fs::dir_tree() in the console and paste here.
 
 ```
-
-
-
-### Rendered Output 
-The rendered output is [here](.html)

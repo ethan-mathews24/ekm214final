@@ -138,6 +138,8 @@ moving_average <- function(filtered_data) {
 ```{r}
 #| echo: false
 
+fig3 <- read_csv("../output/clean_data.csv")
+
 ggplot(data = fig3, mapping = aes(
     x = window_start,
     y = concentration, 
