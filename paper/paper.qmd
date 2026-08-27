@@ -10,14 +10,14 @@ format:
 
 # Background
 
-The study examines how Hurricane Hugo affected stream water chemistry in eight forested watersheds in Puerto Rico. In this analysis we examine the Bisley Quebrada 1, Bisley Quebrada 2, Bisley Quebrada 3, and Puente Roto Mameyes over a 9-week average. Researchers compared water chemistry before and after the hurricane and found that nitrate, potassium, and ammonium increased significantly for up to two years. These increases occurred because the hurricane damaged vegetation, creating more plant material that decomposed and released nutrients into the streams. Overall, hurricanes can significantly disrupt nutrient cycling in tropical forests. 
+The study examines how Hurricane Hugo affected stream water chemistry in eight forested watersheds in Puerto Rico. In this analysis we examine the Bisley Quebrada 1, Bisley Quebrada 2, Bisley Quebrada 3, and Puente Roto Mameyes over a 9-week average. Researchers compared water chemistry before and after the hurricane and found that nitrate, potassium, and ammonium increased significantly for up to two years. These increases occurred because the hurricane damaged vegetation, creating more plant material that decomposed and released nutrients into the streams. Overall, hurricanes can significantly disrupt nutrient cycling in tropical forests.
 
 
 
 # Data
 
 ```{r}
-#| echo: false
+#| output: false
 
 library(tidyverse)
 
@@ -25,7 +25,7 @@ library(tidyverse)
 ```
 
 ```{r}
-#| echo: false
+#| output: false
 
 BQ1 <- read_csv("../data/QuebradaCuenca1-Bisley.csv") |> 
     select(
