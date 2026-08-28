@@ -22,7 +22,7 @@ et al. titled *Effects of hurricane disturbance on stream water concentrations a
 
 ### Repository Contents
 
-This repository houses multiple folders and files that are necessary for replicating the analysis.
+This repository houses multiple folders and files (scripts) that are necessary for replicating the analysis.
 
 The [`data`](data/) folder  contains all the raw data downloaded from EDI Data Portal. There is a .csv file for each of the three BQ watersheds and for the PRM watershed.
 
