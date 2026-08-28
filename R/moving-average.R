@@ -2,7 +2,7 @@
 
 library(tidyverse)
 
-# Moving Averages ---------------------------------------------------------
+# Calculating Moving Averages ---------------------------------------------------------
 
 # Create a function that will be saved as an object so we can change the argument
 moving_average <- function(filtered_data) {
@@ -46,4 +46,3 @@ moving_average <- function(filtered_data) {
 
   return(result)
 }
-
