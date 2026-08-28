@@ -79,6 +79,10 @@ Contributor - [Max Czapanskiy](https://github.com/FlukeAndFeather)
 
 Contributor - [Alessandra Vidal Meza](https://github.com/avidalmeza)
 
+Contributor - [Gita Sharma](https://github.com/gitanjali1024)
+
+Contributor - [Kelly Morgan](https://github.com/kellyloveskelp)
+
 Contributor - [Karolina Sieko](https://github.com/karolinasienko)
 
 Contributor - [Eden Gonzalez](https://github.com/edengonzalezz)
