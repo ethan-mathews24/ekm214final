@@ -4,8 +4,10 @@ library(tidyverse)
 
 # Moving Averages ---------------------------------------------------------
 
+# Create a function that will be saved as an object so we can change the argument
 moving_average <- function(filtered_data) {
-  # Initialize a tibble to contain the results
+  # Set up an empty table with one row per 9-week window across the study
+  # period, so we have a place to store the averaged results
   result <- tibble(
     window_start = seq(ymd("1988-01-05"), ymd("1994-12-26"), by = "9 weeks"),
     Site = filtered_data$Sample_ID[1],
@@ -14,17 +16,15 @@ moving_average <- function(filtered_data) {
     no3_ugl = NA,
     ca_mgl = NA,
     nh4_ugl = NA
-    # Fill in the rest of the ions
   )
 
-  # Fill in the iterator and sequence
+  # Go window by window and average the readings that fall inside each one
   for (i in 1:nrow(result)) {
     # Create variables for the start and end of the current window
     w1 <- result$window_start[i]
     w2 <- w1 + weeks(9)
 
     # Create a logical vector, called "in_window", that says which samples are inside the window
-    # Hint: you'll compare sample dates to the start and end of the window
     in_window <- filtered_data$Sample_Date >= w1 &
       filtered_data$Sample_Date < w2
 
@@ -34,7 +34,7 @@ moving_average <- function(filtered_data) {
     nit_window <- filtered_data$`NO3-N`[in_window]
     amon_window <- filtered_data$`NH4-N`[in_window]
     calc_window <- filtered_data$Ca[in_window]
-    # The line above gets potassium in the window. Get the rest of the ions too
+  
 
     # Calculate the mean of each ion concentration and fill in the result
     result$k_mgl[i] <- mean(k_window, na.rm = TRUE)
