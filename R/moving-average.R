@@ -19,7 +19,7 @@ moving_average <- function(filtered_data) {
     nh4_ugl = NA
   )
 
-  # Go window by window and average the readings that fall inside each one
+  # For-loop will go window by window and average the readings that fall inside each one
   for (i in 1:nrow(result)) {
     # Create variables for the start and end of the current window
     w1 <- result$window_start[i]
