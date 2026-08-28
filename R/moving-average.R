@@ -4,7 +4,8 @@ library(tidyverse)
 
 # Calculating Moving Averages ---------------------------------------------------------
 
-# Create a function that will be saved as an object so we can change the argument
+# Average stream chemistry readings into 9-week windows spanning 1988-1994
+# to match the time window that was used in the original study (Fig. 3).
 moving_average <- function(filtered_data) {
   # Set up an empty table with one row per 9-week window across the study
   # period, so we have a place to store the averaged results
