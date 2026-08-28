@@ -18,17 +18,24 @@ et al. titled *Effects of hurricane disturbance on stream water concentrations a
 
 * `fs` 
 
+The data files used for this analysis were downloaded from [EDI Data Portal](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-luq.20.4923064) and can be found in the folder `data`:
+
+- QuebradaCuenca1-Bisley.csv
+- QuebradaCuenca2-Bisley.csv
+- QuebradaCuenca3-Bisley.csv
+- RioMameyesPuenteRoto.csv
+
 
 
 ### Repository Contents
 
 This repository houses multiple folders and files (scripts) that are necessary for replicating the analysis.
 
-The [`data`](data/) folder  contains all the raw data downloaded from EDI Data Portal. There is a .csv file for each of the three BQ watersheds and for the PRM watershed.
+The [`data`](data/) folder contains all the raw data downloaded from EDI Data Portal. There is a .csv file for each of the three BQ watersheds and for the PRM watershed.
 
 The [`docs`](docs/) folder contains the .html file used to create a webpage in GitHub Pages.
 
-The [`images`](images/) folder contains a .png file of the original graph I replicated.
+The [`images`](images/) folder contains two .png files of the original graph I replicated as well as the one I created.
 
 The [`output`](output/) folder contains one .csv file, [`clean_data.csv`](output/clean_data.csv), that contains the 9-week moving average concentrations for each nutrient in each watershed that was studied.
 
@@ -38,7 +45,7 @@ The [`R`](R/) folder contains [`moving-average.R`](R/moving-average.R) which is 
 
 The `01_clean_data.R` script is cleaning and wrangling the data. This script acts as the intermediate connection that will populate the `output` folder with a .csv of the cleaned data from the analysis.  
 
-The `scratch.R` file is where all of the pre-analysis and spaghetti code took place. This is a brief insight into my workflow and how approached the final steps of the analysis. 
+The `scratch.R` file is where all of the pre-analysis and spaghetti code took place. This is a brief insight into my workflow and how I approached the final steps of the analysis. 
 
 
 
