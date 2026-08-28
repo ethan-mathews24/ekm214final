@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,13 +12,10 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
+code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: 1.5em;}
-div.column{flex: auto;}
-@media screen {
-div.columns{gap: min(4vw, 1.5em);}
-div.column{overflow-x: auto;}
-}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -36,11 +33,40 @@ ul.task-list li input[type="checkbox"] {
 <script src="README_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="README_files/libs/quarto-html/anchor.min.js"></script>
 <link href="README_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="README_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="README_files/libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="README_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="README_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="README_files/libs/bootstrap/bootstrap-917079515d91bccb85b543faf8aa8bb6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="README_files/libs/bootstrap/bootstrap-138a6193a3bd40baf1e627da441a4734.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -53,21 +79,33 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="replicating-an-analysis-on-hurricane-disturbance-and-stream-water-chemistry-in-luquillo-puerto-rico" class="level1">
-<h1>Replicating an Analysis on Hurricane Disturbance and Stream Water Chemistry in Luquillo, Puerto Rico</h1>
+<section id="hurricane-disturbance-and-stream-water-chemistry-in-luquillo-puerto-rico" class="level1">
+<h1>Hurricane Disturbance and Stream Water Chemistry in Luquillo, Puerto Rico</h1>
 <section id="purpose-of-this-repository" class="level3">
 <h3 class="anchored" data-anchor-id="purpose-of-this-repository">Purpose of this Repository</h3>
 <p>This repository aims to replicate an analysis done by Douglas. A. Schaefer et al.&nbsp;titled <em>Effects of hurricane disturbance on stream water concentrations and fluxes in eight tropical forest watersheds of the Luquillo Experimental Forest, Puerto Rico.</em> The study was published by Cambridge University Press in 01 March 2000 and the authors analyzed the effects of hurricane disturbance on stream water concentrations and the variation in eight different tropical forest watersheds.</p>
+<p><img src="images/Schaefer_etal_2020_fig3.jpg" class="img-fluid"> <em>Figure reproduced from Schaefer et al.&nbsp;(2000).</em></p>
 </section>
 <section id="repository-contents" class="level3">
 <h3 class="anchored" data-anchor-id="repository-contents">Repository Contents</h3>
-<p>The repository contains the packages needed to run the analysis and load in data files, the raw data, R scripts to run the analysis, and the citations from where the analysis came from.</p>
+<p>This repository houses multiple folders and files that are necessary for replicating the analysis.</p>
+<p>The <a href="data/"><code>data</code></a> folder contains all the raw data downloaded from EDI Data Portal. There is a .csv file for each of the three BQ watersheds and for the PRM watershed.</p>
+<p>The <a href="docs/"><code>docs</code></a> folder contains the .html file used to create a webpage in GitHub Pages.</p>
+<p>The <a href="images/"><code>images</code></a> folder contains a .png file of the original graph I replicated.</p>
+<p>The <a href="output/"><code>output</code></a> folder contains one .csv file, <a href="output/clean_fig3_long.csv"><code>clean_fig3_long.csv</code></a>, that contains the 9-week moving average concentrations for each nutrient in each watershed that was studied.</p>
+<p>The <a href="paper/"><code>paper</code></a> folder contains a Quarto markdown file that contains all of the analysis and resulting figure as a rendered output.</p>
+<p>The <a href="R/"><code>R</code></a> folder contains <a href="R/moving-average.R"><code>moving-average.R</code></a> which is a file that defines the <code>moving_average()</code> function that is then used for the figure.</p>
+<p>The <code>01_clean_data.R</code> script is cleaning and wrangling the data. This script acts as the intermediate connection that will populate the <code>output</code> folder with a .csv of the cleaned data from the analysis.</p>
+<p>The <code>scratch.R</code> file is where all of the pre-analysis and spaghetti code took place. This is a brief insight into my workflow and how approached the final steps of the analysis.</p>
 </section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<p>The below graph shows the concentrations of Ca, K, Mg, NH<span class="math inline">\(_4\)</span>, and NO<span class="math inline">\(_3\)</span> in the BQ1, BQ2, BQ3, and PRM watersheds in Bisley, Puerto Rico. The vertical line indicates the time of Hurricane Hugo’s disturbance on September 19th, 1989.</p>
+<p><img src="images/fig3rep.png" class="img-fluid"></p>
 <section id="package-dependencies" class="level3">
 <h3 class="anchored" data-anchor-id="package-dependencies">Package Dependencies</h3>
 <ul>
 <li><p><code>tidyverse</code></p></li>
-<li><p><code>lubridate</code></p></li>
 <li><p><code>fs</code></p></li>
 </ul>
 </section>
@@ -83,12 +121,8 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="authors-and-contributors">Authors and Contributors</h3>
 <p>Author - <a href="https://github.com/ethan-mathews24">Ethan Mathews</a></p>
 <p>Contributor - <a href="https://github.com/FlukeAndFeather">Max Czapanskiy</a></p>
-<p>Contributor - <a href="https://github.com/avidalmeza">Ale Vida Meza</a></p>
+<p>Contributor - <a href="https://github.com/avidalmeza">Alessandra Vidal Meza</a></p>
 </section>
-<section id="file-structure" class="level3">
-<h3 class="anchored" data-anchor-id="file-structure">File Structure:</h3>
-<pre><code>TBD run fs::dir_tree() in the console and paste here.
-</code></pre>
 </section>
 </section>
 
