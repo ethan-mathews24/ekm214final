@@ -34,7 +34,6 @@ moving_average <- function(filtered_data) {
     nit_window <- filtered_data$`NO3-N`[in_window]
     amon_window <- filtered_data$`NH4-N`[in_window]
     calc_window <- filtered_data$Ca[in_window]
-  
 
     # Calculate the mean of each ion concentration and fill in the result
     result$k_mgl[i] <- mean(k_window, na.rm = TRUE)
